@@ -51,7 +51,7 @@ void calibrate(void){
   for(int i=0;i<sample;i++){
     
     read_signals();
-    //don't move the robot for first 4-5 seconds it is calibrating
+    //don't move the platform for first 4-5 seconds it is calibrating
     raw_angle_x_c+=raw_angle_x;
    
     delay(1);
@@ -62,7 +62,7 @@ void calibrate(void){
 }
 void mpu_init(void){
  
-  Wire.setClock(400000);
+  Wire.setClock(400000);//400khz clock
   Wire.begin();
   delay(50);
   Wire.beginTransmission(adr);
@@ -72,6 +72,6 @@ void mpu_init(void){
   
 }
 void ccr(){
-  rollServo.write(map(raw_angle_x,-90,90,180,0));
+  rollServo.write(map(raw_angle_x,-90,90,180,0));  // we are using a simple p controller through constant mapping
   delay(1);
 }
